@@ -3,19 +3,20 @@ import { toast } from "react-hot-toast";
 
 const WeatherDataPoint = ({ label, value }) => (
   <div className="flex justify-between items-center py-2 border-b">
-    <p className="text-md md:text-lg font-semibold">{label}:</p>
+    <p className="text-sm md:text-base lg:text-lg font-semibold">{label}:</p>
     {typeof value === "object" ? (
       <div className="flex items-center">
         <img src={value.icon} alt={value.text} className="w-8 h-8" />
-        <span className="ml-2">{value.text}</span>
+        <span className="ml-2 text-sm md:text-base lg:text-lg">{value.text}</span>
       </div>
     ) : label === "Daytime" ? (
-      <p className="text-md md:text-lg">{value ? "Yes" : "No"}</p>
+      <p className="text-sm md:text-base lg:text-lg">{value ? "Yes" : "No"}</p>
     ) : (
-      <p className="text-md md:text-lg">{value}</p>
+      <p className="text-sm md:text-base lg:text-lg">{value}</p>
     )}
   </div>
 );
+
 
 export default function Home() {
   const [weather, setWeather] = useState("");
@@ -124,7 +125,7 @@ export default function Home() {
                   </div>
                   <WeatherDataPoint
                     label="Temperature"
-                    value={`${weather.current.temp_c} °C / ${weather.current.temp_f} °F`}
+                    value={`${weather.current.temp_c}° C / ${weather.current.temp_f}° F`}
                   />
                   <WeatherDataPoint
                     label="Daytime"
@@ -136,7 +137,7 @@ export default function Home() {
                   />
                   <WeatherDataPoint
                     label="Wind Degree"
-                    value={weather.current.wind_degree}
+                    value={`${weather.current.wind_degree}°`}
                   />
                   <WeatherDataPoint
                     label="Wind Direction"
@@ -151,16 +152,16 @@ export default function Home() {
                     value={`${weather.current.precip_mm} mm / ${weather.current.precip_in} in`}
                   />
                   <WeatherDataPoint
-                    label="Humidity (%)"
-                    value={weather.current.humidity}
+                    label="Humidity"
+                    value={`${weather.current.humidity} %`}
                   />
                   <WeatherDataPoint
-                    label="Cloud Cover (%)"
-                    value={weather.current.cloud}
+                    label="Cloud Cover"
+                    value={`${weather.current.cloud} %`}
                   />
                   <WeatherDataPoint
                     label="Feels Like"
-                    value={`${weather.current.feelslike_c} °C / ${weather.current.feelslike_f} °F`}
+                    value={`${weather.current.feelslike_c}° C / ${weather.current.feelslike_f}° F`}
                   />
                   <WeatherDataPoint
                     label="Visibility"
