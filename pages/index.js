@@ -7,7 +7,9 @@ const WeatherDataPoint = ({ label, value }) => (
     {typeof value === "object" ? (
       <div className="flex items-center">
         <img src={value.icon} alt={value.text} className="w-8 h-8" />
-        <span className="ml-2 text-sm md:text-base lg:text-lg">{value.text}</span>
+        <span className="ml-2 text-sm md:text-base lg:text-lg">
+          {value.text}
+        </span>
       </div>
     ) : label === "Daytime" ? (
       <p className="text-sm md:text-base lg:text-lg">{value ? "Yes" : "No"}</p>
@@ -17,10 +19,11 @@ const WeatherDataPoint = ({ label, value }) => (
   </div>
 );
 
-
 export default function Home() {
   const [weather, setWeather] = useState("");
   const [query, setQuery] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (query === "") {
@@ -30,16 +33,20 @@ export default function Home() {
 
   const fetchWeather = async (query) => {
     try {
+
+      if(query.trim.length === 0) return toast.error("Please enter your city/state.");
+
+      setIsLoading(true);
       const response = await fetch(`/api/weather?query=${query}`);
       const data = await response.json();
-
+      setIsLoading(false);
       if (data.error) {
         toast.error(data.error.message);
       }
-
       return data;
     } catch (error) {
       console.error("Error fetching weather data:", error);
+      setIsLoading(false);
       return null;
     }
   };
@@ -49,6 +56,7 @@ export default function Home() {
   };
 
   const handleFetchWeather = async (e) => {
+    e.preventDefault();
     let wthr = await fetchWeather(query);
     setWeather(wthr);
   };
@@ -96,15 +104,19 @@ export default function Home() {
             </div>
             <div className="flex items-center mt-3 justify-center">
               <button
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-3xl hover:bg-blue-600 transition-colors duration-300 focus:outline-none focus:ring focus:ring-blue-300 text-sm md:text-base"
+                className={`flex justify-between items-center mt-2 px-4 py-2 bg-blue-500 text-white rounded-3xl hover:bg-blue-600 transition-colors duration-300 focus:outline-none focus:ring focus:ring-blue-300 text-sm md:text-base ${isLoading ? 'disabled:bg-blue-50 disabled:hover:bg-blue-50 disabled:text-black disabled:cursor-not-allowed' : ''}`}
+                disabled={isLoading}
                 onClick={handleFetchWeather}
                 type="submit"
               >
-                Search
+                {isLoading && (
+            <img className="w-6 h-6" src="loader.svg" alt="Loader"/>
+            )}
+                <span>Search</span>
               </button>
             </div>
           </form>
-          {weather &&
+          {!isLoading && weather &&
             weather.current &&
             Object.keys(weather.current).length !== 0 && (
               <div className="text-center mt-4">
