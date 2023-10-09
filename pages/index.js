@@ -34,7 +34,7 @@ export default function Home() {
   const fetchWeather = async (query) => {
     try {
 
-      if(query.trim.length === 0) return toast.error("Please enter your city/state.");
+      if(query.length === 0) return toast.error("Please enter your city/state.");
 
       setIsLoading(true);
       const response = await fetch(`/api/weather?query=${query}`);
