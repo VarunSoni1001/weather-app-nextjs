@@ -2,7 +2,7 @@
   {
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "android_app",
+      "namespace": "medicause",
       "package_name": "com.medicause.medicause",
       "sha256_cert_fingerprints": [
         "79:C9:62:8A:58:42:B8:67:7B:1F:86:46:3D:7B:64:86:63:AC:A4:60:37:3C:AB:CF:81:19:E5:77:80:4F:AB:E3"
