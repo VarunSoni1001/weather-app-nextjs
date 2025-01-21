@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 const join = () => {
-  const medicauseMembershipJoinUrl = (c) => `medicause://join?code=${c}`;
+  const medicauseMembershipJoinUrl = (c) => `medicause://?code=${c}`;
   const router = useRouter();
   const { code } = router.query;
 
