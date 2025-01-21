@@ -31,8 +31,4 @@ const Header = () => {
   )
 }
 
-<<<<<<< HEAD
 export default Header
-=======
-export default Header
->>>>>>> 4d7123dedd912eae3645de9b28287f4576d94099
