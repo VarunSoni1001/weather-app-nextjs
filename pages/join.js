@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import React from "react";
 
 const join = () => {
   const medicauseMembershipJoinUrl = (c) => `medicause://join?code=${c}`;
